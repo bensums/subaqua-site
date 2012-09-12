@@ -6,9 +6,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'events.views.home', name='home'),
     # url(r'^ueasa-events/', include('ueasa-events.foo.urls')),
-
+    url(r'^$', 'events.views.home'),
+    url(r'^events/', include('events.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
