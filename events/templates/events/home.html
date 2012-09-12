@@ -1,0 +1,9 @@
+{% if latest_events %}
+	<h1>Latest Events</h1>
+	<ul>
+	{% for event in latest_events %}
+	<li><a href="{% url 'events.views.detail' event.id %}">{{ event.name }}</a></li>
+	{% endfor %}
+	</ul>
+{% endif %}
+

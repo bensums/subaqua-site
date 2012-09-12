@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'ueasa-events.views.home', name='home'),
+    url(r'^$', 'events.views.home', name='home'),
     # url(r'^ueasa-events/', include('ueasa-events.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
