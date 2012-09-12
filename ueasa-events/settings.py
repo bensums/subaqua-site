@@ -129,8 +129,8 @@ FACEBOOK_API_SECRET          = os.environ.get('FACEBOOK_SECRET')
 
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 
-LOGIN_URL = '/login-form/'
-LOGIN_REDIRECT_URL = '/logged-in/'
+LOGIN_URL = '/login/facebook/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/login-error/'
 
 
