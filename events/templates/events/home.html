@@ -19,9 +19,10 @@
 {% endif %}
 
 {% if user.is_staff %}
-<p>
-	<a href="{% url events.views.add %}">Add new event</a>
-</p>
+	<h2>Admin</h2>
+	<p>
+		<a href="{% url events.views.add %}">Add new event</a>
+	</p>
 {% endif %}
 
 {% endblock %}
