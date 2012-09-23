@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block events %}
 <form action="{% url events.views.add %}" method="POST">
 	{% csrf_token %}
 	{{ form.non_field_errors }}
@@ -9,4 +11,4 @@
 	{% endfor %}
 	<input type="submit" value="Submit" />
 </form>
-
+{% endblock %}
