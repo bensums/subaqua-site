@@ -17,4 +17,12 @@
 	{% endfor %}
 	</ul>
 {% endif %}
+
+{% if user.is_staff %}
+<p>
+	<a href="{% url events.views.add %}">Add new event</a>
+</p>
+{% endif %}
+
 {% endblock %}
+
