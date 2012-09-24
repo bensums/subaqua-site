@@ -12,4 +12,21 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
 
+from django.conf import settings
+
+from djangogcal.adapter import CalendarAdapter, CalendarEventData
+from djangogcal.observer import CalendarObserver
+
+class EventCalendarAdapter(CalendarAdapter):
+    def get_event_data(self, instance):
+        return CalendarEventData(
+            start=instance.start_time,
+            end=instance.end_time,
+            title=instance.name
+        )
+
+observer = CalendarObserver(email=settings.CALENDAR_EMAIL,
+                            password=settings.CALENDAR_PASSWORD)
+observer.observe(Event, EventCalendarAdapter())
+
 

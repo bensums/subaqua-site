@@ -2,6 +2,9 @@
 import dj_database_url
 import os
 
+CALENDAR_EMAIL = os.environ.get('CALENDAR_EMAIL')
+CALENDAR_PASSWORD = os.environ.get('CALENDAR_PASSWORD')
+
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 TEMPLATE_DEBUG = DEBUG
 
