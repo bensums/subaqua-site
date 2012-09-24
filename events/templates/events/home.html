@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% block events %}
 {% if latest_events %}
 	<h2>Latest Events</h2>
 	<ul>
 	{% for event in latest_events %}
-	<li><a href="{% url events.views.detail event.slug %}">{{ event.name }}</a></li>
+	<li><span class="post_date">Posted {{ event.post_date|naturaltime }}</span><a href="{% url events.views.detail event.slug %}">{{ event.name }}</a></li>
 	{% endfor %}
 	</ul>
 {% endif %}
@@ -13,7 +14,7 @@
 	<h2>My Events</h2>
 	<ul>
 	{% for event in my_events %}
-	<li><a href="{% url events.views.detail event.slug %}">{{ event.name }}</a></li>
+	<li><a href="{% url events.views.detail event.slug %}">{{ event.name }}</a><span class="start_time">{{ event.start_time|naturalday:"d M" }}</span></li>
 	{% endfor %}
 	</ul>
 {% endif %}
