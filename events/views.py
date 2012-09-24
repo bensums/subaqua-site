@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from events.models import Event
 from events.forms import EventForm
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 
 def home(request):
     latest_events = Event.objects.all().order_by('-post_date')[:5]
@@ -23,7 +24,42 @@ def detail(request, slug):
         e = Event.objects.get(slug=slug)
     except Event.DoesNotExist:
         raise Http404
-    return render_to_response('events/detail.html', {'event': e})
+    # is user signed up?
+    user_status = None
+    if request.user.is_authenticated():
+        if request.user in e.people.all():
+            user_status = 'REGISTERED'
+        else:
+            user_status = 'NOT_REGISTERED'
+
+    return render(request, 'events/detail.html', {
+        'event': e,
+        'user_status': user_status
+                                                    })
+
+@login_required
+def register(request, slug):
+    try:
+        e = Event.objects.get(slug=slug)
+    except Event.DoesNotExist:
+        raise Http404
+    # Only signup if not already.
+    if not request.user in e.people.all():
+        e.people.add(request.user)
+        e.save()
+    return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
+
+@login_required
+def unregister(request, slug):
+    try:
+        e = Event.objects.get(slug=slug)
+    except Event.DoesNotExist:
+        raise Http404
+    # Only unregister if already registered.
+    if request.user in e.people.all():
+        e.people.remove(request.user)
+        e.save()
+    return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
 
 @login_required
 def add(request):
