@@ -7,7 +7,7 @@
 	<dd>Attendees{% if event.max_people %} (max. {{ event.max_people }}){% endif %}</dd><dt>
 	<ul>
 		{% for person in event.attendees %}
-		<li>{{ person }}</li>
+		<li>{% firstof person.get_full_name person %}</li>
 		{% empty %}
 		<li>Nobody</li>
 		{% endfor %}
@@ -16,7 +16,7 @@
 	<dd>Wannabe attendees</dd><dt>
 	<ul>
 		{% for person in event.wannabes %}
-		<li>{{ person }}</li>
+		<li>{% firstof person.get_full_name person %}</li>
 		{% empty %}
 		<li>Nobody :)</li>
 		{% endfor %}
