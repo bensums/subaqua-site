@@ -4,27 +4,37 @@
 <dl>
 	<dd>Starts</dd><dt>{{ event.start_time }}</dt>
 	<dd>Ends</dd><dt>{{ event.end_time }}</dt>
-	<dd>Attendees</dd><dt>
+	<dd>Attendees{% if event.max_people %} (max. {{ event.max_people }}){% endif %}</dd><dt>
 	<ul>
-		{% for person in event.people.all %}
+		{% for person in event.attendees %}
 		<li>{{ person }}</li>
 		{% empty %}
 		<li>Nobody</li>
 		{% endfor %}
 	</ul>
-	{% if user.is_authenticated %}
-	{% ifequal user_status 'NOT_REGISTERED' %}
-	<p>
-	You are not registered for this event. <a href="{% url events.views.register event.slug %}">Register</a>
-	</p>
-	{% endifequal %}
-	{% ifequal user_status 'REGISTERED' %}
-	<p>
-	You are registered for this event.
-	<a href="{% url events.views.unregister event.slug %}">Unregister</a>
-	</p>
-	{% endifequal %}
-	{% endif %}
+	</dt>
+	<dd>Wannabe attendees</dd><dt>
+	<ul>
+		{% for person in event.wannabes %}
+		<li>{{ person }}</li>
+		{% empty %}
+		<li>Nobody :)</li>
+		{% endfor %}
+	</ul>
 	</dt>
 </dl>
+
+{% if user.is_authenticated %}
+{% ifequal user_status 'NOT_REGISTERED' %}
+<p>
+You are not registered for this event. <a href="{% url events.views.register event.slug %}">Register</a>
+</p>
+{% endifequal %}
+{% ifequal user_status 'REGISTERED' %}
+<p>
+You are registered for this event.
+<a href="{% url events.views.unregister event.slug %}">Unregister</a>
+</p>
+{% endifequal %}
+{% endif %}
 {% endblock %}
