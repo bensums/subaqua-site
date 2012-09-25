@@ -9,7 +9,13 @@
 </head>
 <body>
 	<h1><a href="/">UEA Sub Aqua Events</a></h1>
-{% block events %}
-{% endblock %}
+
+	{% if not user.is_authenticated %}
+	<p><a href="/login/facebook/">Log in</a></p>
+	{% endif %}
+
+	{% block events %}
+	{% endblock %}
+
 </body>
 </html>
