@@ -44,9 +44,11 @@ def register(request, slug):
     except Event.DoesNotExist:
         raise Http404
     # Only signup if not already.
-    if not request.user in e.people.all():
-        e.people.add(request.user)
-        e.save()
+    # Save the user rather than the event so as not to trigger
+    # google calendar post_save signal attached to Event model.
+    if not e in request.user.event_set.all():
+        request.user.event_set.add(e)
+        request.user.save()
     return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
 
 @login_required
@@ -56,9 +58,9 @@ def unregister(request, slug):
     except Event.DoesNotExist:
         raise Http404
     # Only unregister if already registered.
-    if request.user in e.people.all():
-        e.people.remove(request.user)
-        e.save()
+    if e in request.user.event_set.all():
+        request.user.event_set.remove(e)
+        request.user.save()
     return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
 
 @login_required

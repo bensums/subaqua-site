@@ -31,7 +31,8 @@ class EventCalendarAdapter(CalendarAdapter):
         return CalendarEventData(
             start=instance.start_time,
             end=instance.end_time,
-            title=instance.name
+            title=instance.name,
+            content=instance.description
         )
 
 observer = CalendarObserver(email=settings.CALENDAR_EMAIL,
