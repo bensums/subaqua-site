@@ -14,12 +14,54 @@ class Event(models.Model):
                                     blank=True,
                                     help_text='YYYY-MM-DD hh:mm:ss',
                                     )
-    people = models.ManyToManyField(User, null=True, blank=True)
+    people = models.ManyToManyField(User, null=True, blank=True, through='RSVP')
     max_people = models.PositiveIntegerField(null=True, blank=True,
                                              default=None)
 
     def __unicode__(self):
         return self.name
+
+    def attendees(self):
+        """
+        Return list of users registered for event who were early enough to get
+        a place in the first-come-first-served list.
+        """
+        if not self.max_people:
+            return self.people.all()
+        return self.people.order_by('rsvp__registration_time')[:self.max_people]
+
+    def wannabes(self):
+        """
+        Return list of users registered for the event but too late to get in
+        due to first-come-first-served nature of events.
+        """
+        if not self.max_people:
+            return []
+        return self.people.order_by('rsvp__registration_time')[self.max_people:]
+
+
+class RSVP(models.Model):
+    REGISTERED = 'R'
+    UNREGISTERED = 'U'
+
+    event = models.ForeignKey(Event)
+    user = models.ForeignKey(User)
+    registration_time = models.DateTimeField(
+        help_text='YYYY-MM-DD hh:mm:ss',
+        auto_now_add=True,
+        blank=True,
+        null=True
+    )
+    status = models.CharField(
+        max_length=2,
+        choices=((REGISTERED, 'Registered'),
+                 (UNREGISTERED, 'Not registered')),
+        null=True,
+        blank=True,
+        default=REGISTERED
+    )
+    
+
 
 from django.conf import settings
 

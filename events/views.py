@@ -1,6 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
-from events.models import Event
+from events.models import Event, RSVP
 from events.forms import EventForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -43,12 +43,7 @@ def register(request, slug):
         e = Event.objects.get(slug=slug)
     except Event.DoesNotExist:
         raise Http404
-    # Only signup if not already.
-    # Save the user rather than the event so as not to trigger
-    # google calendar post_save signal attached to Event model.
-    if not e in request.user.event_set.all():
-        request.user.event_set.add(e)
-        request.user.save()
+    RSVP.objects.get_or_create(event=e, user=request.user)
     return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
 
 @login_required
@@ -57,10 +52,9 @@ def unregister(request, slug):
         e = Event.objects.get(slug=slug)
     except Event.DoesNotExist:
         raise Http404
-    # Only unregister if already registered.
-    if e in request.user.event_set.all():
-        request.user.event_set.remove(e)
-        request.user.save()
+    # It doesn't matter if not registered, this next line is idempotent
+    # and cheaper not to check if registered.
+    request.user.rsvp_set.filter(event=e).delete()
     return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
 
 @login_required
