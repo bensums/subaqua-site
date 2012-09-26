@@ -8,6 +8,9 @@ CALENDAR_PASSWORD = os.environ.get('CALENDAR_PASSWORD')
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 TEMPLATE_DEBUG = DEBUG
 
+# For debug toolbar
+INTERNAL_IPS = ('127.0.0.1',)
+
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 ADMINS = (
@@ -107,6 +110,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'ueasa-events.urls'
@@ -138,6 +142,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'debug_toolbar',
 )
 
 # Stuff for django-social-auth
