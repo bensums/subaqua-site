@@ -17,6 +17,9 @@ class Event(models.Model):
     people = models.ManyToManyField(User, null=True, blank=True, through='RSVP')
     max_people = models.PositiveIntegerField(null=True, blank=True,
                                              default=None)
+    cost = models.PositiveIntegerField(default=0)
+    location = models.CharField(max_length=250, null=True, blank=True,
+                                default=None)
 
     def __unicode__(self):
         return self.name
