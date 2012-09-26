@@ -8,7 +8,9 @@
 		<link href="{% static "screen.css" %}" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<h1><a href="/">UEA Sub Aqua Events</a></h1>
+	<header>
+		<h1><a href="/">UEA Sub Aqua Events</a></h1>
+	</header>
 
 	{% if not user.is_authenticated %}
 	<p><a href="/login/facebook/">Log in</a></p>

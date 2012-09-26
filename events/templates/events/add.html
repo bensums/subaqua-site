@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 {% block events %}
+<h2>Create a new event</h2>
 <form action="{% url events.views.add %}" method="POST">
 	{% csrf_token %}
 	{{ form.non_field_errors }}
+	<fieldset>
 	{% for field in form %}
-	<p>
+	<div class="form-row">
+		{{ field.label_tag }}
 		{{ field.errors }}
-		{{ field.label_tag }}: {{ field }}
-		{{ field.help_text }}
-	</p>
+		{{ field }}
+		{% if field.help_text %}
+		<p class="help-text">{{ field.help_text }}</p>
+		{% endif %}
+	</div>
 	{% endfor %}
+	</fieldset>
 	<input type="submit" value="Submit" />
 </form>
 <p class="back_button">
