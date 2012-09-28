@@ -6,11 +6,16 @@
 		<meta charset='utf-8'>
 		<link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
 		<link href="{% static "screen.css" %}" media="screen" rel="stylesheet" type="text/css" />
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/cupertino/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" >
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
 </head>
 <body>
+	<!--
 	<header>
 		<h1><a href="/">UEA Sub Aqua Events</a></h1>
 	</header>
+	-->
 
 	{% if not user.is_authenticated %}
 	<p><a href="/login/facebook/">Log in</a></p>

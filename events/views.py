@@ -4,17 +4,16 @@ from events.models import Event, RSVP
 from events.forms import EventForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from datetime import datetime
 
 def home(request):
-    latest_events = Event.objects.all().order_by('-post_date')[:5]
-    if request.user.is_authenticated():
-        my_events = request.user.event_set.all()
-    else:
-        my_events = None
+    future_events = Event.objects.filter(
+        start_time__gte=datetime.now()
+    ).order_by('category', 'start_time')
+
     return render(request, 'events/home.html',
             {
-                'latest_events': latest_events,
-                'my_events': my_events
+                'future_events': future_events
             }
         )
 
