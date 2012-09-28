@@ -3,6 +3,8 @@
 {% block events %}
 
 <h2>Upcoming events</h2>
+<div id="future-events">
+{% if future_events %}
 <script>
 	$(function() {
 		$( "#future-events" ).accordion({
@@ -11,8 +13,6 @@
 		});
 	});
 </script>
-<div id="future-events">
-{% if future_events %}
 {% regroup future_events by category as categories %}
 {% for category in categories %}
 <h3 class="category-heading"><a href="#{{ category.grouper|slugify }}">{{ category.grouper }}</a></h3>
