@@ -1,10 +1,22 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class EventCategory(models.Model):
+    name = models.CharField(max_length=200, null=True, blank=True, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
+
+    class Meta:
+        verbose_name_plural = "event categories"
+
+    def __unicode__(self):
+        return self.name
+
+
 class Event(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=210, unique=True)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True)
+    category = models.ForeignKey('EventCategory', null=True, blank=True)
     post_date = models.DateTimeField('Post time', auto_now_add=True,
                                      null=True, blank=True,
                                      help_text='YYYY-MM-DD hh:mm:ss')
