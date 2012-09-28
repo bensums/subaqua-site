@@ -13,9 +13,8 @@ body {
   width: 520px;
   margin: 20px auto;
   padding: 20px;
-  border-color: #aaa;
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid #aab;
+  border-bottom-width: 2px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
