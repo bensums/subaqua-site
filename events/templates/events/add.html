@@ -21,4 +21,8 @@
 <p class="back_button">
 	<a href="/">Back</a>
 </p>
+<script type="text/javascript">
+$('#id_slug').data('dependency_list', ['name'])
+             .prepopulate(['#id_name'], $('#id_slug').prop('maxlength'));
+</script>
 {% endblock %}
