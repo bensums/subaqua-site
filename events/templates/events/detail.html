@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% block events %}
 <h2>{{ event.name }}</h2>
+<p>{{ event.description }}</p>
 <dl>
 	<dd>Starts</dd><dt>{{ event.start_time }}</dt>
 	<dd>Ends</dd><dt>{{ event.end_time }}</dt>
 	<dd>Cost</dd><dt>{% ifequal event.cost 0 %}Free{% else %}£{{ event.cost }}{% endifequal %}</dt>
+	<dd>Location</dd><dt>{{ event.location }}</dt>
 	<dd>Attendees{% if event.max_people %} (max. {{ event.max_people }}){% endif %}</dd><dt>
 	<ul>
 		{% for person in event.attendees %}
