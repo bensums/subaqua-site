@@ -1,7 +1,7 @@
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render
 from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from events.models import Event, RSVP
-from events.forms import EventForm
+from events.forms import EventForm, RSVPForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from datetime import datetime
@@ -42,8 +42,42 @@ def register(request, slug):
         e = Event.objects.get(slug=slug)
     except Event.DoesNotExist:
         raise Http404
-    RSVP.objects.get_or_create(event=e, user=request.user)
-    return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
+
+    try:
+        rsvp = RSVP.objects.get(event=e, user=request.user)
+    except RSVP.DoesNotExist:
+        rsvp = None
+
+    if rsvp:
+        # User is already registered for this event.
+        return render(request, 'events/register.html', {
+            'already_registered': True,
+            'event': e
+        })
+
+    if request.method == 'POST':
+        form = RSVPForm(request.POST)
+        if form.is_valid():
+            # Prepare a model instance from the form but do not save to db.
+            rsvp = form.save(commit=False)
+            rsvp.event = e
+            rsvp.user = request.user
+            rsvp.status = RSVP.REGISTERED
+            # now save.
+            rsvp.save()
+            return HttpResponseRedirect(reverse('events.views.detail',
+                                                args=(slug,)))
+            
+    else:
+        form = RSVPForm()
+
+    return render(request, 'events/register.html', {
+        'form': form,
+        'event': e
+    })
+
+#    RSVP.objects.get_or_create(event=e, user=request.user)
+#    return HttpResponseRedirect(reverse('events.views.detail', args=(slug,)))
 
 @login_required
 def unregister(request, slug):

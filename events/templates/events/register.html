@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block events %}
+<h2>Signing up for {{ event }} on {{ event.start_time }}</h2>
+{% if already_registered %}
+<p>You are already registered for this event. <a href="{% url events.views.unregister event.slug %}">Unregister</a></p>
+{% else %}
+<form action="{% url events.views.register event.slug %}" method="POST">
+	{% csrf_token %}
+	{{ form.non_field_errors }}
+	<fieldset>
+	{% for field in form %}
+	<div class="form-row">
+		{{ field.label_tag }}
+		{{ field.errors }}
+		{{ field }}
+		{% if field.help_text %}
+		<p class="help-text">{{ field.help_text }}</p>
+		{% endif %}
+	</div>
+	{% endfor %}
+	</fieldset>
+	<input type="submit" value="Sign up" />
+</form>
+{% endif %}
+<p class="back_button">
+	<a href="/">Back to event list</a>
+</p>
+{% endblock %}
