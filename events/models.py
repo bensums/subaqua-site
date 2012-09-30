@@ -75,7 +75,12 @@ class RSVP(models.Model):
         blank=True,
         default=REGISTERED
     )
-    
+    comment = models.TextField(
+        blank=True,
+        default="",
+        help_text="If you have a message for the organisers, enter it here \
+        and they will get back to you."
+    )
 
 
 from django.conf import settings
