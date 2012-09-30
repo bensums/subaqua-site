@@ -5,6 +5,7 @@ from events.models import Event, RSVP
 class EventForm(ModelForm):
     class Meta:
         model = Event 
+        exclude = ('people',)
 
 
 class RSVPForm(ModelForm):
