@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
 from events.models import Event, RSVP
 from events.forms import EventForm, RSVPForm
+from events.util import send_mail
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from datetime import datetime
+
 
 def home(request):
     future_events = Event.objects.filter(
@@ -65,6 +67,21 @@ def register(request, slug):
             rsvp.status = RSVP.REGISTERED
             # now save.
             rsvp.save()
+
+            comment = form.cleaned_data['comment'].strip()
+            if comment:
+                send_mail(
+                    subject='Message from %s about %s' %
+                        (request.user.get_full_name(), e.name),
+                    message="\r\n".join([
+                        'Event: %s on %s,' % (e.name, e.start_time),
+                        '',
+                        'Message: %s' % comment,
+                    ]),
+                    reply_to=request.user.email
+                )
+
+            
             return HttpResponseRedirect(reverse('events.views.detail',
                                                 args=(slug,)))
             
