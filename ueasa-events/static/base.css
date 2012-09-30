@@ -97,6 +97,10 @@ ol.event-list .event .time-column {
   width: 33%;
 }
 
+dd {
+  color: #203358;
+}
+
 /* ------------------------------------------ */
 
 /* =header
