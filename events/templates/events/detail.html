@@ -4,6 +4,7 @@
 <dl>
 	<dd>Starts</dd><dt>{{ event.start_time }}</dt>
 	<dd>Ends</dd><dt>{{ event.end_time }}</dt>
+	<dd>Cost</dd><dt>{% ifequal event.cost 0 %}Free{% else %}£{{ event.cost }}{% endifequal %}</dt>
 	<dd>Attendees{% if event.max_people %} (max. {{ event.max_people }}){% endif %}</dd><dt>
 	<ul>
 		{% for person in event.attendees %}
@@ -38,6 +39,6 @@ You are registered for this event.
 {% endifequal %}
 {% endif %}
 <p class="back_button">
-	<a href="/">Back</a>
+	<a href="/">Back to event list</a>
 </p>
 {% endblock %}
