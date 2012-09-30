@@ -24,5 +24,21 @@
 <script type="text/javascript">
 $('#id_slug').data('dependency_list', ['name'])
              .prepopulate(['#id_name'], $('#id_slug').prop('maxlength'));
+$('#id_name').keyup(function() { $('#id_slug').keyup(); });
+$('#id_slug').keyup(
+	function() {
+		$.ajax('{% url events.views.slug_available %}',
+			{
+				'success': function(data, status, jqxhr) {
+					$('#id_slug').css('color', 'green');
+				},
+				'error': function(jqxhr, status) {
+					$('#id_slug').css('color', 'red');
+				},
+				'data': {'slug': this.value }
+	   		}
+		)
+	}
+);
 </script>
 {% endblock %}

@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import Http404, HttpResponseForbidden, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseForbidden, \
+                        HttpResponseRedirect, HttpResponseServerError
+from django.core.validators import validate_slug
 from events.models import Event, RSVP
 from events.forms import EventForm, RSVPForm
 from events.util import send_mail
@@ -124,4 +126,25 @@ def add(request):
                              {
                                 'form': form,
                              })
+
+@login_required
+def slug_available(request):
+    if request.method == 'GET':
+        if request.GET.has_key('slug'):
+            slug = request.GET['slug']
+
+            try:
+                validate_slug(slug)
+            except ValidationError:
+                return HttpResponseServerError()
+
+            try:
+                e = Event.objects.get(slug=slug)
+            except Event.DoesNotExist:
+                e = None
+            if e:
+                # event with that slug already exists
+                return HttpResponseServerError()
+            return HttpResponse()
+    return HttpResponseServerError("Invalid request")
 
