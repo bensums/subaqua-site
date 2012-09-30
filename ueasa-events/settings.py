@@ -160,6 +160,9 @@ LOGIN_URL = '/login/facebook/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/login-error/'
 
+GMAIL_SEND_USER = os.environ.get('GMAIL_SEND_USER')
+GMAIL_SEND_PASS = os.environ.get('GMAIL_SEND_PASS')
+COMMITTEE_EMAIL = os.environ.get('COMMITTEE_EMAIL')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
