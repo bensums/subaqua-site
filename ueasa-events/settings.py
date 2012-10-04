@@ -75,6 +75,11 @@ STATIC_ROOT = ''
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
+# jQuery stuff.
+JQUERY_URL = "//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"
+JQUERY_UI_URL = "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"
+JQUERY_UI_CSS = "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/cupertino/jquery-ui.css"
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
