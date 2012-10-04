@@ -1,10 +1,20 @@
-from django.forms import ModelForm  
+from django.forms import ModelForm
 from django import forms
 from events.models import Event, RSVP
+from events.widgets import JQuerySplitDateTime
+
 
 class EventForm(ModelForm):
+    start_time = forms.DateTimeField(
+        widget=JQuerySplitDateTime
+    )
+
+    end_time = forms.DateTimeField(
+        widget=JQuerySplitDateTime
+    )
+
     class Meta:
-        model = Event 
+        model = Event
         exclude = ('people',)
 
 
@@ -17,5 +27,3 @@ class RSVPForm(ModelForm):
     class Meta:
         model = RSVP
         exclude = ('event', 'user', 'status')
-
-

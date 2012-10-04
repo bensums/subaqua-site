@@ -9,9 +9,10 @@
 		<link href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/cupertino/jquery-ui.css" media="screen" rel="stylesheet" type="text/css" >
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+		{% block head_append %}
+		{% endblock %}
 		<script src="{% static "js/urlify.js" %}"></script>
 		<script src="{% static "js/prepopulate.js" %}"></script>
-
 </head>
 <body>
 	<!--
