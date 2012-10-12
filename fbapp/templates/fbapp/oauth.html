@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block js %}
+<script type="text/javascript">
+	top.location.href = '{{ auth_url|safe }}'; 
+</script>
+<noscript>
+	You have Javascript disabled. To continue either enable Javascript or enter the following URL into your address bar {{ auth_url|safe }}
+</noscript>
+{% endblock %}

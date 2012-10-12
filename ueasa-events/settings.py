@@ -109,7 +109,6 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'ueasa-events.middleware.IgnoreFbCsrfMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -140,6 +139,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'social_auth',
     'events',
+    'fbapp',
     'storages',
     'south',
     'djangogcal',
@@ -158,6 +158,7 @@ AUTHENTICATION_BACKENDS = (
 
 FACEBOOK_APP_ID              = os.environ.get('FACEBOOK_APP_ID')
 FACEBOOK_API_SECRET          = os.environ.get('FACEBOOK_SECRET')
+FACEBOOK_CANVAS_URL          = os.environ.get('FACEBOOK_CANVAS_URL')
 
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 
