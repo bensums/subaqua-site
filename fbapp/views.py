@@ -7,6 +7,7 @@ from social_auth.backends.facebook import FacebookBackend
 from django.http import HttpResponseRedirect
 from django.contrib.auth import BACKEND_SESSION_KEY
 from social_auth.backends.exceptions import AuthException
+from django.utils.http import urlencode
 
 @csrf_exempt
 def canvas(request):
@@ -31,12 +32,11 @@ def canvas(request):
     print request.session.get(BACKEND_SESSION_KEY)
 
     # finally if not logged in
-    auth_url = 'https://www.facebook.com/dialog/oauth?client_id={app_id}' \
-    '&redirect_uri={canvas_url}&scope={scope}'.format(
-        app_id=settings.FACEBOOK_APP_ID,
-        canvas_url=settings.FACEBOOK_CANVAS_URL,
-        scope=','.join(settings.FACEBOOK_EXTENDED_PERMISSIONS)
-    )
+    auth_url = 'https://www.facebook.com/dialog/oauth?%s' % urlencode({
+        'client_id': settings.FACEBOOK_APP_ID,
+        'redirect_uri': settings.FACEBOOK_CANVAS_URL,
+        'scope': ','.join(settings.FACEBOOK_EXTENDED_PERMISSIONS)
+    })
     return render_to_response('fbapp/oauth.html', {'auth_url': auth_url})
 
 # Checks the completeness of current user authentication; complete = logged via
