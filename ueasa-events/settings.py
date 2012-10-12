@@ -5,6 +5,9 @@ import os
 # This is fine on Heroku, but may be dangerous in general.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
+
 CALENDAR_EMAIL = os.environ.get('CALENDAR_EMAIL')
 CALENDAR_PASSWORD = os.environ.get('CALENDAR_PASSWORD')
 
