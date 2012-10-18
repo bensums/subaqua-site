@@ -20,7 +20,7 @@ INTERNAL_IPS = ('127.0.0.1',)
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Admin', os.environ.get('ADMIN_EMAIL')),
 )
 
 MANAGERS = ADMINS
@@ -176,6 +176,13 @@ LOGIN_ERROR_URL = '/login-error/'
 GMAIL_SEND_USER = os.environ.get('GMAIL_SEND_USER')
 GMAIL_SEND_PASS = os.environ.get('GMAIL_SEND_PASS')
 COMMITTEE_EMAIL = os.environ.get('COMMITTEE_EMAIL')
+
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT'))
+EMAIL_SUBJECT_PREFIX = os.environ.get('EMAIL_SUBJECT_PREFIX')
+EMAIL_USE_TLS = bool(os.environ.get('EMAIL_USE_TLS'))
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
