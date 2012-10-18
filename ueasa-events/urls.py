@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, include, url
 
+from django.views.generic.simple import redirect_to
+from django.contrib.staticfiles.storage import staticfiles_storage
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -7,6 +10,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^ueasa-events/', include('ueasa-events.foo.urls')),
+    url(r'^favicon.ico$', redirect_to,
+        {'url': staticfiles_storage.url('favicon.ico')}),
     url(r'^$', 'events.views.home'),
     url(r'^canvas/$', 'fbapp.views.canvas'),
     url(r'^events/', include('events.urls')),
