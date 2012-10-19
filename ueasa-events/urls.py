@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 
-from django.views.generic.simple import redirect_to
+from django.views.generic.simple import redirect_to, direct_to_template
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 # Uncomment the next two lines to enable the admin:
@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     url(r'^favicon.ico$', redirect_to,
         {'url': staticfiles_storage.url('favicon.ico')}),
     url(r'^$', 'events.views.home'),
+    url(r'^login-error/$', direct_to_template, { 'template': 'login-error.html'
+                                                }),
     url(r'^canvas/$', 'fbapp.views.canvas'),
     url(r'^events/', include('events.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
