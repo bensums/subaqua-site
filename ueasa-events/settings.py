@@ -169,7 +169,7 @@ FACEBOOK_CANVAS_URL          = os.environ.get('FACEBOOK_CANVAS_URL')
 
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 
-LOGIN_URL = '/login/facebook/'
+LOGIN_URL = '/canvas/' # Log in only via Facebook canvas.
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/login-error/'
 
