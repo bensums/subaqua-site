@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponse, HttpResponseForbidden, \
                         HttpResponseRedirect, HttpResponseServerError
 from django.core.validators import validate_slug
+from django.forms import ValidationError
 from events.models import Event, RSVP
 from events.forms import EventForm, RSVPForm
 from events.util import send_mail
