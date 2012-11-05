@@ -11,7 +11,7 @@ CSRF_COOKIE_SECURE=True
 CALENDAR_EMAIL = os.environ.get('CALENDAR_EMAIL')
 CALENDAR_PASSWORD = os.environ.get('CALENDAR_PASSWORD')
 
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False').lower() == 'true'
 TEMPLATE_DEBUG = DEBUG
 
 # For debug toolbar
