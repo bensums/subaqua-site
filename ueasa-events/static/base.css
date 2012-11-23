@@ -90,11 +90,11 @@ ol.event-list li.event div {
 }
 
 ol.event-list .event .name-column {
-  width: 66%;
+  width: 60%;
 }
 
 ol.event-list .event .time-column {
-  width: 33%;
+  width: 40%;
 }
 
 dd {
