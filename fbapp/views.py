@@ -27,9 +27,9 @@ def canvas(request):
 
     # Check if logged in.
     if is_complete_authentication(request):
-        return HttpResponseRedirect('/')
-
-    print request.session.get(BACKEND_SESSION_KEY)
+        response = HttpResponseRedirect('/')
+        response['P3P'] = 'CP="HONK"' # Allow setting 3rd-party cookie in IE.
+        return response
 
     # finally if not logged in
     auth_url = 'https://www.facebook.com/dialog/oauth?%s' % urlencode({
